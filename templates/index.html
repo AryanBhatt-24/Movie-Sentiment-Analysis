@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Sentiment Analysis</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f5f7fa; /* light neutral background */
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #1f2937; /* professional dark gray text */
+        }
+        .card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        h2 {
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #111827; /* dark text for title */
+        }
+        textarea {
+            resize: none;
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #d1d5db;
+            outline: none;
+            font-size: 1rem;
+            width: 100%;
+            transition: border 0.3s ease;
+        }
+        textarea:focus {
+            border-color: #3b82f6; /* subtle blue on focus */
+            box-shadow: 0 0 8px rgba(59,130,246,0.2);
+        }
+        .btn-custom {
+            background: #3b82f6; /* subtle blue */
+            color: white;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 12px 20px;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+        .btn-custom:hover {
+            background: #2563eb;
+            transform: scale(1.03);
+        }
+        .prediction {
+            margin-top: 25px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        .positive {
+            background-color: #d1fae5; /* light green */
+            color: #065f46; /* dark green */
+        }
+        .negative {
+            background-color: #fee2e2; /* light red */
+            color: #991b1b; /* dark red */
+        }
+        .history {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .history h5 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        .history-item {
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 500;
+            font-size: 0.95rem;
+            background-color: #f3f4f6;
+        }
+        .history-positive {
+            border-left: 5px solid #10b981; /* green indicator */
+        }
+        .history-negative {
+            border-left: 5px solid #ef4444; /* red indicator */
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>Movie Sentiment Analysis</h2>
+        <form action="/predict" method="post">
+            <div class="mb-3">
+                <textarea name="review" rows="5" placeholder="Enter your movie review..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-custom">Predict Sentiment</button>
+        </form>
+
+        {% if prediction %}
+            <div class="prediction {% if 'Positive' in prediction %}positive{% else %}negative{% endif %}">
+                {{ prediction }}
+            </div>
+        {% endif %}
+
+        {% if prediction %}
+            <div class="history">
+                <h5>Past Predictions</h5>
+                <div class="history-item {% if 'Positive' in prediction %}history-positive{% else %}history-negative{% endif %}">
+                    "{{ request.form['review'] }}" → {{ prediction }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
