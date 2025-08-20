@@ -50,9 +50,9 @@ Positive Review
 🔹 Project Structure
 Movie-Sentiment-Analysis/
 │
-├─ app.py                  # Flask backend
-├─ sentiment_model.pkl      # Trained ML model
-├─ tfidf_vectorizer.pkl     # TF-IDF vectorizer
+```├─ app.py                  # Flask backend```
+```├─ sentiment_model.pkl      # Trained ML model```
+```├─ tfidf_vectorizer.pkl     # TF-IDF vectorizer```
 ├─ templates/
 │   └─ index.html           # Frontend HTML
 ├─ static/                  # Optional CSS/images for styling
